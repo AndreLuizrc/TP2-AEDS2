@@ -4,11 +4,39 @@ import java.io.FileReader;
 import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 class Lista {
+    private List<String> Lista;
 
+    Lista(){
+        this.Lista = new ArrayList<>();
+    }
+
+    public List<String> getLista() {
+        return Lista;
+    }
+
+    public void setLista(List<String> lista) {
+        Lista = lista;
+    }
+
+    public void parseStringToList(String texto){
+        // Expressão regular para encontrar strings entre aspas simples
+        Pattern pattern = Pattern.compile("'(.*?)'");
+        Matcher matcher = pattern.matcher(texto);
+        
+        // Iterar sobre as correspondências encontradas e adicionar à lista
+        while (matcher.find()) {
+            Lista.add(matcher.group(1)); // Adiciona o texto capturado entre as aspas simples
+        }
+        
+    }
 }
 
 class Personagem {
@@ -162,11 +190,11 @@ class Personagem {
         this.alive = alive;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -220,18 +248,8 @@ class Personagem {
     }
 
     public static String[] ler(String dados){
-        String[] atributos = new String[17];
-        int tam = dados.length();
-        int initialIndex = 0;
-        int posicao_vetor = 0;
-        for(int i = 0; i < tam; i++){
-            if(dados.charAt(i) == ';'){
-                atributos[posicao_vetor] = dados.substring(initialIndex, i);
-                initialIndex = i+1;
-                posicao_vetor++;
-            }
-        }
-
+        String[] atributos = dados.split(";");
+    
         return atributos;
     }
 
@@ -239,10 +257,10 @@ class Personagem {
 
 public class Questao1 {
 
-    public static void main(String[] args) {
-        Personagem[] personagens = new Personagem[405];
+    public static void preencherVetor(Personagem[] personagens){
         String line;
         String[] atributos;
+        Lista alternate_names = new Lista();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         try {
             Scanner sc = new Scanner(new File("characters.csv"));
@@ -250,8 +268,8 @@ public class Questao1 {
             while(sc.hasNextLine()){
                 line = sc.nextLine();
                 atributos = Personagem.ler(line);
-                Lista atributo3;
-                personagens[i] = new Personagem(atributos[0],atributos[1],atributo3, atributos[3], atributos[4], atributos[5], atributos[6], Boolean.parseBoolean(atributos[7]), atributos[8], atributos[9], 
+                
+                personagens[i] = new Personagem(atributos[0],atributos[1],alternate_names.getLista(), atributos[3], atributos[4], atributos[5], atributos[6], Boolean.parseBoolean(atributos[7]), atributos[8], atributos[9], 
                 Boolean.parseBoolean(atributos[10]),LocalDate.parse(atributos[11], formatter), Integer.parseInt(atributos[12]),atributos[13],atributos[14],atributos[15], Boolean.parseBoolean(atributos[16]));
             }
 
@@ -260,8 +278,18 @@ public class Questao1 {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
 
-        
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Personagem[] personagens = new Personagem[405];
+        preencherVetor(personagens);
+        String id;
+
+        id = sc.nextLine();
+        while(id.equals("FIM") != true){
+
+        }
 
     }
 
