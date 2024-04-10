@@ -1,11 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -26,7 +23,7 @@ class Lista {
         Lista = lista;
     }
 
-    public void parseStringToList(String texto){
+    public List<String> parseStringToList(String texto){
         // Expressão regular para encontrar strings entre aspas simples
         Pattern pattern = Pattern.compile("'(.*?)'");
         Matcher matcher = pattern.matcher(texto);
@@ -35,6 +32,8 @@ class Lista {
         while (matcher.find()) {
             Lista.add(matcher.group(1)); // Adiciona o texto capturado entre as aspas simples
         }
+
+        return Lista;
         
     }
 }
@@ -42,7 +41,7 @@ class Lista {
 class Personagem {
     private String id;
     private String name;
-    private Lista alternate_names;
+    private List<String> alternate_names;
     private String house;
     private String ancestry;
     private String species;
@@ -60,7 +59,7 @@ class Personagem {
 
 
 
-    public Personagem(String id, String name, Lista alternate_names, String house, String ancestry, String species,
+    public Personagem(String id, String name, List<String> alternate_names, String house, String ancestry, String species,
             String patronus, boolean hogwartsStaff, String hogwatsStudent, String actorName, boolean alive,
             LocalDate dateOfBirth, int yearOfBith, String eyeColour, String gender, String hairColor, boolean wizard) {
         this.id = id;
@@ -85,7 +84,7 @@ class Personagem {
     public Personagem() {
         this.id = "";
         this.name = "";
-        this.alternate_names = [];
+        this.alternate_names = new ArrayList<>();
         this.house = "";
         this.ancestry = "";
         this.species = "";
@@ -94,7 +93,7 @@ class Personagem {
         this.hogwatsStudent = "";
         this.actorName = "";
         this.alive = false;
-        this.dateOfBirth = Date.from(null);
+        this.dateOfBirth = LocalDate.now();
         this.yearOfBith = 0;
         this.eyeColour = "";
         this.gender = "";
@@ -118,11 +117,11 @@ class Personagem {
         this.name = name;
     }
 
-    public Lista getAlternate_names() {
+    public List<String> getAlternate_names() {
         return alternate_names;
     }
 
-    public void setAlternate_names(Lista alternate_names) {
+    public void setAlternate_names(List<String> alternate_names) {
         this.alternate_names = alternate_names;
     }
 
@@ -239,8 +238,9 @@ class Personagem {
     }
 
     public void imprimir(){
-        System.out.println("[" + id +"##" + name +"##"+ alternate_names + "##" + house + "##" + ancestry + "##" + species + "##" + patronus + "##" + hogwartsStaff + 
-        "##" + hogwatsStudent + "##" + actorName + "##" + alive + "##" + dateOfBirth + "##" + yearOfBith + "##" + eyeColour + "##" + gender + "##" + hairColor + "##" + wizard + "]");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-uuuu");
+        System.out.println("[" + id +" ## " + name +" ## "+ alternate_names + " ## " + house + " ## " + ancestry + " ## " + species + " ## " + patronus + " ## " + hogwartsStaff + 
+        " ## " + hogwatsStudent + " ## " + actorName + " ## " + alive + " ## " + dateOfBirth.format(formatter) + " ## " + yearOfBith + " ## " + eyeColour + " ## " + gender + " ## " + hairColor + " ## " + wizard + "]");
     }
 
     public Personagem clonar(){
@@ -260,22 +260,25 @@ public class Questao1 {
     public static void preencherVetor(Personagem[] personagens){
         String line;
         String[] atributos;
-        Lista alternate_names = new Lista();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        Lista alternate_names;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-uuuu");
         try {
-            Scanner sc = new Scanner(new File("characters.csv"));
+            Scanner sc = new Scanner(new File("/tmp/characters.csv"));
             int i = 0;
+            sc.nextLine();
             while(sc.hasNextLine()){
                 line = sc.nextLine();
                 atributos = Personagem.ler(line);
+                alternate_names = new Lista();
                 
-                personagens[i] = new Personagem(atributos[0],atributos[1],alternate_names.getLista(), atributos[3], atributos[4], atributos[5], atributos[6], Boolean.parseBoolean(atributos[7]), atributos[8], atributos[9], 
-                Boolean.parseBoolean(atributos[10]),LocalDate.parse(atributos[11], formatter), Integer.parseInt(atributos[12]),atributos[13],atributos[14],atributos[15], Boolean.parseBoolean(atributos[16]));
+                personagens[i] = new Personagem(atributos[0],atributos[1],alternate_names.parseStringToList(atributos[2]), atributos[3], atributos[4], atributos[5], atributos[6], atributos[7].equals("VERDADEIRO")? true: false, atributos[8], atributos[9], 
+                atributos[10].equals("VERDADEIRO")? true: false,LocalDate.parse(atributos[12], formatter), Integer.parseInt(atributos[13]),atributos[14],atributos[15],atributos[16], atributos[17].equals("VERDADEIRO")? true: false);
+                //System.out.println(personagens[i].getId());
+                i++;
             }
 
             sc.close();
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -288,9 +291,16 @@ public class Questao1 {
 
         id = sc.nextLine();
         while(id.equals("FIM") != true){
-
+            for(int i = 0; i < 405; i++){
+                if(personagens[i].getId().equals(id)){
+                    personagens[i].imprimir();
+                    i = 410;
+                }
+            }
+            id = sc.nextLine();
         }
 
+        sc.close();
     }
 
 }

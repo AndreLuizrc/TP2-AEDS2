@@ -26,7 +26,7 @@ b0620914-858d-46fc-8e6d-033c565e138b;Mrs Norris;[];Slytherin;pure-blood;cat;;VER
 2b82cfb8-0440-4a57-a030-6d75a40c0d98;Argus Filch;[];Slytherin;squib;human;;VERDADEIRO;FALSO;David Bradley;VERDADEIRO;[];31-12-1926;1954;yellow;male;grey;FALSO
 b4ffe89b-8796-42ad-a6d9-5af1a369af7e;Vernon Dursley;[];Slytherin;muggle;human;;FALSO;FALSO;Richard Griffiths;VERDADEIRO;[];31-12-1926;1954;yellow;male;grey;FALSO
 fed624df-56d9-495e-9ad4-ea77000957e8;Petunia Dursley;[];Slytherin;muggle;human;;FALSO;FALSO;Fiona Shaw;VERDADEIRO;[];31-12-1926;1954;yellow;female;blonde;FALSO
-7614cf6e-689e-47ac-a976-b1e9997637e9;Dudley Dursley;[];Slytherin;muggle;human;;FALSO;FALSO;Harry Melling;VERDADEIRO;[];23-6-1980;1980;blue;male;blond;FALSO
+7614cf6e-689e-47ac-a976-b1e9997637e9;Dudley Dursley;[];Slytherin;muggle;human;;FALSO;FALSO;Harry Melling;VERDADEIRO;[];23-06-1980;1980;blue;male;blond;FALSO
 41cd0bbe-a943-431b-9bde-bb2cad3491a1;Lily Potter;[];Gryffindor;muggleborn;human;;FALSO;FALSO;Geraldine Somerville;FALSO;[];30-01-1960;1960;green;female;blond;VERDADEIRO
 34eb6182-00cf-4c95-ae73-7d2f34066d18;James Potter;['Prongs'];Gryffindor;pure-blood;human;stag;FALSO;FALSO;Adrian Rawlins;FALSO;[];27-03-1960;1960;green;male;black;VERDADEIRO
 b415c867-1cff-455e-b194-748662ac2cca;Albus Dumbledore;['Professor Dumbledore'];Gryffindor;half-blood;human;Phoenix;VERDADEIRO;FALSO;Richard Harris;FALSO;['Michael Gambon'];27-03-1960;1881;blue;male;silver;VERDADEIRO
@@ -74,7 +74,7 @@ f94086b8-03ae-4457-ba2c-e624d0980869;Lavender Brown;[];Gryffindor;half-blood;hum
 ec714982-e604-40d4-bd4c-dc5155506957;Morag MacDougal;[];Gryffindor;half-blood;human;;FALSO;VERDADEIRO;;VERDADEIRO;[];31-12-1926;1928;amber;female;sandy;VERDADEIRO
 e32dd37c-91cd-4950-8ef2-e2ba1b87bd75;Lily Moon;[];Gryffindor;half-blood;human;;FALSO;VERDADEIRO;;VERDADEIRO;[];31-12-1926;1980;amber;female;sandy;VERDADEIRO
 47aa7511-59b9-4760-9bd7-822a1103177b;Theodore Nott;[];Slytherin;pure-blood;human;;FALSO;VERDADEIRO;;VERDADEIRO;[];31-12-1926;1981;amber;male;sandy;VERDADEIRO
-2899e63f-ed02-4152-8ace-0270a068a70d;Pansy Parkinson;[];Slytherin;pure-blood;human;;FALSO;VERDADEIRO;Genevieve Gaunt;VERDADEIRO;['Lauren Shotton', 'Scarlett Byrne'];23-6-1980;1981;amber;female;sandy;VERDADEIRO
+2899e63f-ed02-4152-8ace-0270a068a70d;Pansy Parkinson;[];Slytherin;pure-blood;human;;FALSO;VERDADEIRO;Genevieve Gaunt;VERDADEIRO;['Lauren Shotton', 'Scarlett Byrne'];23-06-1980;1981;amber;female;sandy;VERDADEIRO
 0201cf73-8a86-4358-b232-2abaa23f09af;Parvati Patil;[];Gryffindor;pure-blood;human;;FALSO;VERDADEIRO;Sitara Shah;VERDADEIRO;['Shefali Chowdhury'];30-01-1960;1959;amber;female;sandy;VERDADEIRO
 69c18f6a-cd97-4218-9f2f-740393e6eb1f;Padma Patil;[];Ravenclaw;pure-blood;human;;FALSO;VERDADEIRO;Sharon Sandhu;VERDADEIRO;['Afshan Azad'];27-03-1960;1960;amber;female;sandy;VERDADEIRO
 3d629315-1dbb-4e1e-840d-ffbf45bd5894;Sally-Anne Perks;[];Ravenclaw;pure-blood;human;;FALSO;VERDADEIRO;;VERDADEIRO;[];27-03-1960;1950;amber;female;sandy;VERDADEIRO
@@ -122,7 +122,7 @@ c9804c5b-943b-4710-8f95-0c3b40141007;Mr Granger;['Wendell Wilkins'];Gryffindor;m
 c0f33c97-d01d-42ed-ae40-1a525f75bb01;Dr Filibuster;[];Gryffindor;muggle;human;;FALSO;FALSO;;VERDADEIRO;[];31-12-1926;1954;blue;male;ginger;VERDADEIRO
 8e557e86-28d5-433f-8ac1-d2cecfeb8fb7;Colin Creevey;[];Gryffindor;muggleborn;human;;FALSO;VERDADEIRO;Hugh Mitchell;FALSO;[];31-12-1926;1954;blue;male;ginger;VERDADEIRO
 8d885bd9-6103-424b-b884-c26720a64d94;Gladys Gudgeon;[];Gryffindor;muggleborn;human;;FALSO;FALSO;;VERDADEIRO;[];31-12-1926;1954;blue;female;ginger;VERDADEIRO
-a4e18c27-077a-441a-b9a9-97ee9ba53224;Veronica Smethley;[];Gryffindor;muggleborn;human;;FALSO;FALSO;;VERDADEIRO;[];23-6-1980;1980;blue;female;ginger;VERDADEIRO
+a4e18c27-077a-441a-b9a9-97ee9ba53224;Veronica Smethley;[];Gryffindor;muggleborn;human;;FALSO;FALSO;;VERDADEIRO;[];23-06-1980;1980;blue;female;ginger;VERDADEIRO
 e938023d-ba03-402a-b6ff-ecadc0ff4dbb;Patrick Delaney-Podmore;['Sir Patrick Delaney-Podmore'];Gryffindor;muggleborn;ghost;;FALSO;FALSO;;FALSO;[];30-01-1960;1960;blue;male;ginger;VERDADEIRO
 8d018f5d-8370-41c8-8aa4-8b8a815ec801;Z. Nettles;[];Gryffindor;muggleborn;human;;FALSO;FALSO;;VERDADEIRO;[];27-03-1960;1960;blue;female;ginger;VERDADEIRO
 50f9e638-fa69-4c97-ba2c-bfc7124b7818;D.J. Prod;['Demetrius J. Prod'];Gryffindor;muggleborn;human;;FALSO;FALSO;Chris Wilson;FALSO;[];27-03-1960;1881;blue;male;ginger;VERDADEIRO
@@ -170,7 +170,7 @@ d9294c96-bd7d-45d0-95e2-deaf71e09945;Amos Diggory;[];Slytherin;pure-blood;human;
 ca8a41e3-1f20-4c28-bc8a-b1831206edf5;Gilbert Wimple;[];Slytherin;muggle;human;;FALSO;FALSO;;VERDADEIRO;[];31-12-1926;1928;blue;male;brown;VERDADEIRO
 6777feda-2318-4605-ba0e-1a6fd5fc2e7f;Arnold Peasegood;[];Slytherin;muggle;human;;FALSO;FALSO;;VERDADEIRO;[];31-12-1926;1980;blue;male;brown;VERDADEIRO
 cb49285e-1dcb-413e-905b-2a883ac35ddc;Broderick Bode;[];Slytherin;muggle;human;;FALSO;FALSO;;FALSO;[];31-12-1926;1981;blue;male;brown;VERDADEIRO
-391546f6-d357-43e1-8072-98a8548d4902;Saul Croaker;[];Slytherin;muggle;human;;FALSO;FALSO;;VERDADEIRO;[];23-6-1980;1981;blue;male;brown;VERDADEIRO
+391546f6-d357-43e1-8072-98a8548d4902;Saul Croaker;[];Slytherin;muggle;human;;FALSO;FALSO;;VERDADEIRO;[];23-06-1980;1981;blue;male;brown;VERDADEIRO
 91142fb9-dc92-4f6f-8504-5498916f07a6;Ali Bashir;[];Slytherin;muggle;human;;FALSO;FALSO;;VERDADEIRO;[];30-01-1960;1959;blue;male;brown;VERDADEIRO
 b7b18aa1-b5a0-4083-8142-cb3655bc2849;Victor Krum;[];Slytherin;muggle;human;;FALSO;FALSO;Stanislav Ianevski;VERDADEIRO;[];27-03-1960;1960;dark;male;dark;VERDADEIRO
 45d6db91-393e-40e0-8c04-43cb598fb9e5;Winky;[];Slytherin;muggle;house-elf;;FALSO;FALSO;;VERDADEIRO;[];27-03-1960;1950;dark;female;dark;FALSO
@@ -218,7 +218,7 @@ b48c5b8a-4066-4c24-ba26-7677f5ed2b6f;Wilhelmina Grubbly-Plank;['Professor Grubbl
 d4a0a760-a318-4c62-a110-6533c28c57ba;Wilkes;[];Slytherin;pure-blood;human;;FALSO;FALSO;;FALSO;[];31-12-1926;1954;blue;male;grey;VERDADEIRO
 30d850c1-637b-41d7-a57a-e97b81216858;Avery;[];Slytherin;pure-blood;human;;FALSO;FALSO;Richard Rosson;VERDADEIRO;[];31-12-1926;1954;blue;male;grey;VERDADEIRO
 de6c8669-ce5b-4b03-b2f4-e8ea20742a58;Antonin Dolohov;[];Slytherin;pure-blood;human;;FALSO;FALSO;Arben Bajraktaraj;VERDADEIRO;[];31-12-1926;1954;blue;male;dark;VERDADEIRO
-6a7090ae-b6ab-49a0-bd19-e24acb219426;Travers;[];Slytherin;pure-blood;human;;FALSO;FALSO;Tav MacDougall;VERDADEIRO;[];23-6-1980;1980;blue;male;grey;VERDADEIRO
+6a7090ae-b6ab-49a0-bd19-e24acb219426;Travers;[];Slytherin;pure-blood;human;;FALSO;FALSO;Tav MacDougall;VERDADEIRO;[];23-06-1980;1980;blue;male;grey;VERDADEIRO
 f012a686-0aa8-47f6-96e3-0cf1577cad18;Marlene McKinnon;[];Slytherin;pure-blood;human;;FALSO;FALSO;;FALSO;[];30-01-1960;1960;blue;female;grey;VERDADEIRO
 070e077a-2b02-44c0-80c1-f63817ee4a33;Mulciber;[];Slytherin;pure-blood;human;;FALSO;FALSO;;VERDADEIRO;[];27-03-1960;1960;blue;male;grey;VERDADEIRO
 dd3b2fbe-e9f2-4069-b881-9c31040ed9ae;Augustus Rookwood;[];Slytherin;pure-blood;human;;FALSO;FALSO;Richard Trinder;VERDADEIRO;[];27-03-1960;1881;blue;male;grey;VERDADEIRO
@@ -266,7 +266,7 @@ bff82738-5bb0-4edc-9cec-f80d1af4801f;Vicky Frobisher;[];Gryffindor;half-blood;hu
 57ce2ac3-2cea-4e76-9b2d-7d294f593d4a;Cassandra Trelawney;[];Gryffindor;half-blood;human;;FALSO;FALSO;;FALSO;[];31-12-1926;1928;blue;female;grey;VERDADEIRO
 cb263aed-289b-43ad-8647-db54b8a5fc92;Michael Corner;[];Ravenclaw;half-blood;human;;FALSO;VERDADEIRO;Ryan Nelson;VERDADEIRO;[];31-12-1926;1980;blue;male;grey;VERDADEIRO
 6fa93583-b935-4228-91e0-729e6713bdab;Zacharias Smith;[];Ravenclaw;half-blood;human;;FALSO;VERDADEIRO;Nick Shirm;VERDADEIRO;[];31-12-1926;1981;blue;male;blond;VERDADEIRO
-781f1061-5413-40c7-8a35-b078e2e969b1;Barnabas the Barmy;[];Ravenclaw;half-blood;human;;FALSO;VERDADEIRO;;FALSO;[];23-6-1980;1981;blue;male;blond;VERDADEIRO
+781f1061-5413-40c7-8a35-b078e2e969b1;Barnabas the Barmy;[];Ravenclaw;half-blood;human;;FALSO;VERDADEIRO;;FALSO;[];23-06-1980;1981;blue;male;blond;VERDADEIRO
 ff0c4625-be03-4815-b7cf-241e496b0593;Karkus;[];Ravenclaw;half-blood;giant;;FALSO;FALSO;;FALSO;[];30-01-1960;1959;blue;male;blond;FALSO
 ab86f41a-3eeb-4586-95d8-b59fbdfc6bb7;Golgomath;[];Ravenclaw;half-blood;giant;;FALSO;FALSO;;VERDADEIRO;[];27-03-1960;1960;blue;male;blond;FALSO
 41a7eedf-f856-48e0-b9fd-69cfccaf8835;Fridwulfa;[];Ravenclaw;half-blood;giant;;FALSO;FALSO;;FALSO;[];27-03-1960;1950;blue;female;blond;FALSO
@@ -315,7 +315,7 @@ b44d83d7-8850-4fe7-b246-2335322a46f1;Tiberius;[];Ravenclaw;muggleborn;human;;FAL
 cbb7e8e0-c8f7-4a3f-befc-b288e1c385d4;Bertie Higgs;[];Ravenclaw;muggleborn;human;;FALSO;FALSO;;FALSO;[];31-12-1926;1954;dark;male;black;VERDADEIRO
 3ba97e84-9fbb-49a6-b084-0924e811e712;Proudfoot;[];Ravenclaw;muggleborn;human;;FALSO;FALSO;;VERDADEIRO;[];31-12-1926;1954;dark;male;black;VERDADEIRO
 44551b41-9742-40ad-b327-15227ef615c4;Savage;[];Ravenclaw;muggleborn;human;;FALSO;FALSO;;VERDADEIRO;[];31-12-1926;1980;dark;male;black;VERDADEIRO
-f8c5cdbf-a6e9-431b-85a4-9d6dd2fa09dd;Humphrey Belcher;[];Ravenclaw;muggleborn;human;;FALSO;FALSO;;VERDADEIRO;[];23-6-1980;1960;dark;male;black;VERDADEIRO
+f8c5cdbf-a6e9-431b-85a4-9d6dd2fa09dd;Humphrey Belcher;[];Ravenclaw;muggleborn;human;;FALSO;FALSO;;VERDADEIRO;[];23-06-1980;1960;dark;male;black;VERDADEIRO
 6821f44c-d662-4a57-9236-0a0b289e14ac;Bob Ogden;[];Ravenclaw;muggleborn;human;;FALSO;FALSO;;FALSO;[];30-01-1960;1960;dark;male;black;VERDADEIRO
 ee7b0dfb-b639-46f1-9364-7644a103a9a3;Morfin Gaunt;[];Ravenclaw;pure-blood;human;;FALSO;FALSO;;FALSO;[];27-03-1960;1881;dark;male;black;VERDADEIRO
 0607b07a-d58a-47c7-8845-32476298e9ef;Marvolo Gaunt;[];Ravenclaw;pure-blood;human;;FALSO;FALSO;;FALSO;[];27-03-1960;1881;brown;male;grey;VERDADEIRO
@@ -364,7 +364,7 @@ bd9f49ef-452e-4c22-84c8-ab76da9f0003;Monsieur Delacour;[];Slytherin;quarter-veel
 4848cf4f-27ac-42d3-8e49-f63515c92c37;Dragomir Gorgovitch;[];Slytherin;quarter-veela;human;;FALSO;FALSO;;VERDADEIRO;[];31-12-1926;1981;dark;male;black;VERDADEIRO
 d1e8ddf1-cfc7-404a-bffe-f4ac6c656ead;Xenophilius Lovegood;[];Ravenclaw;quarter-veela;human;;FALSO;FALSO;Rhys Ifans;VERDADEIRO;[];31-12-1926;1981;dark;male;white;VERDADEIRO
 20354d7a-e4fe-47af-8ff6-187bca92f3f9;Pandora Lovegood;[];Ravenclaw;quarter-veela;human;;FALSO;FALSO;;FALSO;[];31-12-1926;1959;dark;female;white;VERDADEIRO
-f7457448-8382-4e5e-b72a-0044fc6f8958;Muriel;['Aunt Muriel'];Ravenclaw;quarter-veela;human;;FALSO;FALSO;Matyelok Gibbs;VERDADEIRO;[];23-6-1980;1960;dark;female;grey;VERDADEIRO
+f7457448-8382-4e5e-b72a-0044fc6f8958;Muriel;['Aunt Muriel'];Ravenclaw;quarter-veela;human;;FALSO;FALSO;Matyelok Gibbs;VERDADEIRO;[];23-06-1980;1960;dark;female;grey;VERDADEIRO
 cf903d42-5d51-44b0-b362-adc57e626885;Bilius;['Uncle Bilius'];Ravenclaw;quarter-veela;human;;FALSO;FALSO;;FALSO;[];30-01-1960;1950;dark;male;grey;VERDADEIRO
 753ffe5f-19a8-41c9-b264-289766c8a4be;Thorfinn Rowle;[];Ravenclaw;quarter-veela;human;;FALSO;FALSO;Rod Hunt;VERDADEIRO;[];27-03-1960;1951;dark;male;blond;VERDADEIRO
 d4eee96d-c53f-4e6f-8a95-c97d42343833;Reg Cattermole;['Reginald Cattermole'];Ravenclaw;quarter-veela;human;;FALSO;FALSO;Steffan Rhodri;VERDADEIRO;[];27-03-1960;1926;dark;male;blond;VERDADEIRO
