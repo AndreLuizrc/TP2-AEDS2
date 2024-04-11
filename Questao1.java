@@ -1,8 +1,9 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -50,7 +51,7 @@ class Personagem {
     private String hogwatsStudent;
     private String actorName;
     private boolean alive;
-    private LocalDate dateOfBirth;
+    private Date dateOfBirth;
     private int yearOfBith;
     private String eyeColour;
     private String gender;
@@ -61,7 +62,7 @@ class Personagem {
 
     public Personagem(String id, String name, List<String> alternate_names, String house, String ancestry, String species,
             String patronus, boolean hogwartsStaff, String hogwatsStudent, String actorName, boolean alive,
-            LocalDate dateOfBirth, int yearOfBith, String eyeColour, String gender, String hairColor, boolean wizard) {
+            Date dateOfBirth, int yearOfBith, String eyeColour, String gender, String hairColor, boolean wizard) {
         this.id = id;
         this.name = name;
         this.alternate_names = alternate_names;
@@ -93,7 +94,7 @@ class Personagem {
         this.hogwatsStudent = "";
         this.actorName = "";
         this.alive = false;
-        this.dateOfBirth = LocalDate.now();
+        this.dateOfBirth = Date.from(null);
         this.yearOfBith = 0;
         this.eyeColour = "";
         this.gender = "";
@@ -189,11 +190,11 @@ class Personagem {
         this.alive = alive;
     }
 
-    public LocalDate getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -238,9 +239,9 @@ class Personagem {
     }
 
     public void imprimir(){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-uuuu");
-        System.out.println("[" + id +" ## " + name +" ## "+ alternate_names + " ## " + house + " ## " + ancestry + " ## " + species + " ## " + patronus + " ## " + hogwartsStaff + 
-        " ## " + hogwatsStudent + " ## " + actorName + " ## " + alive + " ## " + dateOfBirth.format(formatter) + " ## " + yearOfBith + " ## " + eyeColour + " ## " + gender + " ## " + hairColor + " ## " + wizard + "]");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        System.out.println("[" + id +" ## " + name +" ## "+ alternate_names.toString().replace('[', '{').replace(']', '}') + " ## " + house + " ## " + ancestry + " ## " + species + " ## " + patronus + " ## " + hogwartsStaff + 
+        " ## " + hogwatsStudent + " ## " + actorName + " ## " + alive + " ## " + formatter.format(dateOfBirth) + " ## " + yearOfBith + " ## " + eyeColour + " ## " + gender + " ## " + hairColor + " ## " + wizard + "]");
     }
 
     public Personagem clonar(){
@@ -261,7 +262,8 @@ public class Questao1 {
         String line;
         String[] atributos;
         Lista alternate_names;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-uuuu");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        Date dateOfBirth;
         try {
             Scanner sc = new Scanner(new File("/tmp/characters.csv"));
             int i = 0;
@@ -270,11 +272,16 @@ public class Questao1 {
                 line = sc.nextLine();
                 atributos = Personagem.ler(line);
                 alternate_names = new Lista();
+                try {
+                    dateOfBirth = formatter.parse(atributos[12]);
+                    personagens[i] = new Personagem(atributos[0],atributos[1],alternate_names.parseStringToList(atributos[2]), atributos[3], atributos[4], atributos[5], atributos[6], atributos[7].equals("VERDADEIRO")? true: false, atributos[8], atributos[9], 
+                    atributos[10].equals("VERDADEIRO")? true: false,dateOfBirth, Integer.parseInt(atributos[13]),atributos[14],atributos[15],atributos[16], atributos[17].equals("VERDADEIRO")? true: false);
+                    //System.out.println(personagens[i].getId());
+                    i++;
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 
-                personagens[i] = new Personagem(atributos[0],atributos[1],alternate_names.parseStringToList(atributos[2]), atributos[3], atributos[4], atributos[5], atributos[6], atributos[7].equals("VERDADEIRO")? true: false, atributos[8], atributos[9], 
-                atributos[10].equals("VERDADEIRO")? true: false,LocalDate.parse(atributos[12], formatter), Integer.parseInt(atributos[13]),atributos[14],atributos[15],atributos[16], atributos[17].equals("VERDADEIRO")? true: false);
-                //System.out.println(personagens[i].getId());
-                i++;
             }
 
             sc.close();
