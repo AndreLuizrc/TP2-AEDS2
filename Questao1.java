@@ -48,7 +48,7 @@ class Personagem {
     private String species;
     private String patronus;
     private boolean hogwartsStaff;
-    private String hogwatsStudent;
+    private boolean hogwatsStudent;
     private String actorName;
     private boolean alive;
     private Date dateOfBirth;
@@ -61,7 +61,7 @@ class Personagem {
 
 
     public Personagem(String id, String name, List<String> alternate_names, String house, String ancestry, String species,
-            String patronus, boolean hogwartsStaff, String hogwatsStudent, String actorName, boolean alive,
+            String patronus, boolean hogwartsStaff, boolean hogwatsStudent, String actorName, boolean alive,
             Date dateOfBirth, int yearOfBith, String eyeColour, String gender, String hairColor, boolean wizard) {
         this.id = id;
         this.name = name;
@@ -91,7 +91,7 @@ class Personagem {
         this.species = "";
         this.patronus = "";
         this.hogwartsStaff = false;
-        this.hogwatsStudent = "";
+        this.hogwatsStudent = false;
         this.actorName = "";
         this.alive = false;
         this.dateOfBirth = Date.from(null);
@@ -166,11 +166,11 @@ class Personagem {
         this.hogwartsStaff = hogwartsStaff;
     }
 
-    public String getHogwatsStudent() {
+    public boolean getHogwatsStudent() {
         return hogwatsStudent;
     }
 
-    public void setHogwatsStudent(String hogwatsStudent) {
+    public void setHogwatsStudent(boolean hogwatsStudent) {
         this.hogwatsStudent = hogwatsStudent;
     }
 
@@ -274,7 +274,7 @@ public class Questao1 {
                 alternate_names = new Lista();
                 try {
                     dateOfBirth = formatter.parse(atributos[12]);
-                    personagens[i] = new Personagem(atributos[0],atributos[1],alternate_names.parseStringToList(atributos[2]), atributos[3], atributos[4], atributos[5], atributos[6], atributos[7].equals("VERDADEIRO")? true: false, atributos[8], atributos[9], 
+                    personagens[i] = new Personagem(atributos[0],atributos[1],alternate_names.parseStringToList(atributos[2]), atributos[3], atributos[4], atributos[5], atributos[6], atributos[7].equals("VERDADEIRO")? true: false, atributos[8].equals("VERDADEIRO")? true: false, atributos[9], 
                     atributos[10].equals("VERDADEIRO")? true: false,dateOfBirth, Integer.parseInt(atributos[13]),atributos[14],atributos[15],atributos[16], atributos[17].equals("VERDADEIRO")? true: false);
                     //System.out.println(personagens[i].getId());
                     i++;
