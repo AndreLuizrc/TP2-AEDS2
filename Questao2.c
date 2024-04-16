@@ -16,7 +16,7 @@ typedef struct {
     char species[200];
     char patronus[200];
     bool hogwartsStaff;
-    char hogwartsStudent[200];
+    bool hogwartsStudent;
     char actorName[200];
     bool alive;
     char dateOfBirth[200];
@@ -28,7 +28,7 @@ typedef struct {
     
 }Personagem;
 
-Personagem construtor(char*, char*, char*, char*, char*, char*, char*, bool, char*, char*, bool, char*,
+Personagem construtor(char*, char*, char*, char*, char*, char*, char*, bool, bool, char*, bool, char*,
 int, char*, char*, char*, bool);
 
 Personagem construtor_vazio();
@@ -114,8 +114,7 @@ int main(){
     Personagem personagens[405];
     PreencherVetor(personagens);
 
-    fgets(id,200,stdin);
-    id[strcspn(id, "\n")] = '\0';
+    scanf("%s", id);
     
     while(strcmp(id, "FIM") != 0){
         for(int i = 0; i < 405; i++){
@@ -127,12 +126,11 @@ int main(){
                 i = 500;
             }
         }
-        fgets(id,200,stdin);
-        id[strcspn(id, "\n")] = '\0';
+        scanf("%s", id);
     }
 }
 
-Personagem construtor(char id[], char name[], char alternate_names[], char house[], char ancestry[], char species[], char patronus[], bool hogwartsStaff, char hogwartsStudent[], char actorName[], bool alive, char dateOfBirth[],
+Personagem construtor(char id[], char name[], char alternate_names[], char house[], char ancestry[], char species[], char patronus[], bool hogwartsStaff, bool hogwartsStudent, char actorName[], bool alive, char dateOfBirth[],
 int yearOfBirth, char eyeColour[], char gender[], char hairColor[], bool wizard){
     Personagem P;
 
@@ -144,7 +142,7 @@ int yearOfBirth, char eyeColour[], char gender[], char hairColor[], bool wizard)
     strcpy(P.patronus, patronus);
     strcpy(P.species, species);
     P.hogwartsStaff = hogwartsStaff;
-    strcpy(P.hogwartsStudent, hogwartsStudent);
+    P.hogwartsStudent = hogwartsStudent;
     strcpy(P.actorName, actorName);
     P.alive = alive;
     strcpy(P.dateOfBirth,dateOfBirth);
@@ -168,7 +166,7 @@ Personagem construtor_vazio(){
     strcpy(P.patronus, "");
     strcpy(P.species, "");
     P.hogwartsStaff = 0;
-    strcpy(P.hogwartsStudent, "");
+    P.hogwartsStudent = 0;
     strcpy(P.actorName, "");
     P.alive = 0;
     strcpy(P.dateOfBirth,"");
@@ -213,13 +211,13 @@ char **ler(char line[]){
 void imprimir(Personagem *P){
     printf("[%s ## %s ## %s ## %s ## %s ## %s ## %s ## %s ## %s ## %s ## %s ## %s ## %d ## %s ## %s ## %s ## %s]\n",
      P->id, P->name, P->alternate_names.Lista, P->house, P->ancestry, P->species, P->patronus,
-     P->hogwartsStaff == 1? "true": "false", P->hogwartsStudent, P->actorName, P->alive == 1? "true": "false", P->dateOfBirth, P->yearOfBirth, P->eyeColour, P->gender, P->hairColor, P->wizard == 1? "true": "false") ;
+     P->hogwartsStaff == 1? "true": "false", P->hogwartsStudent == 1? "true": "false", P->actorName, P->alive == 1? "true": "false", P->dateOfBirth, P->yearOfBirth, P->eyeColour, P->gender, P->hairColor, P->wizard == 1? "true": "false") ;
 }
 
 void PreencherVetor(Personagem personagens[]){
     FILE *arquivo_csv;
     char line[1200];
-    if((arquivo_csv = fopen("/tmp/characters.csv", "r")) != NULL){
+    if((arquivo_csv = fopen("characters.csv", "r")) != NULL){
         
         int i = 0;
         fgets(line,1200,arquivo_csv);
@@ -231,11 +229,13 @@ void PreencherVetor(Personagem personagens[]){
                     atributos[2][i] = '{';
                 }else if(atributos[2][i] == ']'){
                    atributos[2][i] = '}';
+                }else if(atributos[2][i] == '\''){
+                    atributos[2][i] = ' ';
                 }
             }
 
             personagens[i] = construtor(atributos[0],atributos[1],atributos[2],atributos[3],atributos[4],
-            atributos[5], atributos[6], strcmp(atributos[7], "VERDADEIRO") == 0? true: false, atributos[8], atributos[9], atributos[10],
+            atributos[5], atributos[6], strcmp(atributos[7], "VERDADEIRO") == 0? true: false, strcmp(atributos[8], "VERDADEIRO") == 0? true: false, atributos[9], atributos[10],
             atributos[12],atoi(atributos[13]), atributos[14], atributos[15], atributos[16], strcmp(atributos[17], "VERDADEIRO") == 0? true: false);
             
             i++;
@@ -319,11 +319,16 @@ void setHogwartsStaff(char *hogwartsStaff, Personagem *P){
 }
 
 char* getHogwartsStudent(Personagem *P){
-    return P->hogwartsStudent;
+    int value = P->hogwartsStudent;
+    return value == 1? "true": "false";
 }
 
-void setHogwartsStudent(char *hogwartsStudent, Personagem *P){
-    strcpy(P->hogwartsStudent, hogwartsStudent);
+void setHogwartsStudent(char * hogwartsStudent, Personagem *P){
+      if(strcmp(hogwartsStudent, "true") == 0){
+        P->hogwartsStaff = 1;    
+    }else {
+        P->hogwartsStaff = 0;
+    }
 }
 
 char* getActorName(Personagem *P){
