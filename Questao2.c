@@ -203,7 +203,8 @@ char **ler(char line[]){
         }
     }
 
-    strncpy(campos[17], line + start, (tam_line-start) - 1);
+    strncpy(campos[17], line + start, tam_line-start-1);
+    //campos[17][tam_line-start] = '\0';
 
     return campos;
 }
@@ -217,9 +218,10 @@ void imprimir(Personagem *P){
 void PreencherVetor(Personagem personagens[]){
     FILE *arquivo_csv;
     char line[1200];
-    if((arquivo_csv = fopen("characters.csv", "r")) != NULL){
+    if((arquivo_csv = fopen("/tmp/characters.csv", "r")) != NULL){
         
         int i = 0;
+        int tam_lista;
         fgets(line,1200,arquivo_csv);
         while( fgets(line,1200,arquivo_csv) != NULL){
             char **atributos = ler(line);
@@ -227,12 +229,17 @@ void PreencherVetor(Personagem personagens[]){
             for(int i = 0; atributos[2][i] != '\0'; i++){
                 if(atributos[2][i] == '['){
                     atributos[2][i] = '{';
-                }else if(atributos[2][i] == ']'){
-                   atributos[2][i] = '}';
                 }else if(atributos[2][i] == '\''){
-                    atributos[2][i] = ' ';
+                    for (int j = i; atributos[2][j] != '\0'; j++) {
+                        atributos[2][j] = atributos[2][j + 1];
+                        
+                    }
                 }
             }
+
+            tam_lista = strlen(atributos[2]);
+            atributos[2][tam_lista-1] = '}';
+            //printf("%s", atributos[17]);
 
             personagens[i] = construtor(atributos[0],atributos[1],atributos[2],atributos[3],atributos[4],
             atributos[5], atributos[6], strcmp(atributos[7], "VERDADEIRO") == 0? true: false, strcmp(atributos[8], "VERDADEIRO") == 0? true: false, atributos[9], atributos[10],
