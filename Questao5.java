@@ -260,7 +260,7 @@ class Personagem {
 
 }
 
-public class Questao3 {
+public class Questao5 {
 
     public static void preencherVetor(Personagem[] personagens, ArrayList<String> ids){
         String line;
@@ -302,34 +302,43 @@ public class Questao3 {
         }
     }
 
-    public static int PesquisaSequencial(Personagem[] personagens, String nome) {
+    public static void Selecao(Personagem[] personagens) {
+        long inicio = System.nanoTime();
+        int comparacoes = 0, movimentacoes = 0;
 
-        int comparacoes = 0;
-        boolean find = false;
-        for(int i = 0; i < personagens.length; i++){
-            if(personagens[i].getName().equals(nome) == true){
-                i = personagens.length;
-                find = true;
+        Personagem tmp;
+        int menor;
+
+        for(int i = 0; i < personagens.length - 1; i++){
+            menor = i;
+            for(int j = i+1; j < personagens.length; j++){
+                if(personagens[j].getName().compareTo(personagens[menor].getName()) < 0){
+                    menor = j;
+                }
+                comparacoes++;
             }
-            comparacoes++;
+
+            tmp = personagens[i];
+            personagens[i] = personagens[menor];
+            personagens[menor] = tmp;
+
+            movimentacoes += 3;
         }
 
-        if(find == true){
-            System.out.println("SIM");
-        }else {
-            System.out.println("NAO"); 
-        }
+        long fim = System.nanoTime();
 
-        return comparacoes;
+        long tempoExecucao = fim - inicio;
+
+        log(tempoExecucao, comparacoes, movimentacoes);
     }
 
-    public static void log(long tempoExecucao,int comparacoes){
-        File log = new File("824007_sequencial.txt");
+    public static void log(long tempoExecucao,int comparacoes, int movimentacoes){
+        File log = new File("824007_selecao.txt");
         double segundos =tempoExecucao / 1_000_000_000.0;
 
         try{
             PrintWriter writer = new PrintWriter( new FileWriter(log, true));
-            writer.println("824007\t"+segundos+"\t"+comparacoes);
+            writer.println("824007\t"+comparacoes+"\t"+movimentacoes+"\t"+segundos);
             writer.close();
         }catch(IOException e){
             e.printStackTrace();
@@ -337,11 +346,10 @@ public class Questao3 {
     }
 
     public static void main(String[] args) {
-        long inicio = System.nanoTime();
         Scanner sc = new Scanner(System.in);
         ArrayList<String> ids = new ArrayList<>();
-        String id, name;
-        int comparacoes = 0;
+        String id;
+        
         
         id = sc.nextLine();
         while(id.equals("FIM") != true){
@@ -354,18 +362,13 @@ public class Questao3 {
 
         //System.out.println(personagens.length);
         preencherVetor(personagens, ids);
-        
-        name = sc.nextLine();
-        while(name.equals("FIM") != true){
-            comparacoes += PesquisaSequencial(personagens, name);
-            name = sc.nextLine();
+
+        Selecao(personagens);
+
+        for(int i = 0; i < personagens.length; i++){
+            personagens[i].imprimir();
         }
 
-        long fim = System.nanoTime();
-
-        long tempoExecucao = fim - inicio;
-
-        log(tempoExecucao, comparacoes);
         sc.close();
     }
 
