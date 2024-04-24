@@ -269,7 +269,7 @@ public class Questao11 {
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         Date dateOfBirth;
         try {
-            Scanner sc = new Scanner(new File("characters.csv"));
+            Scanner sc = new Scanner(new File("/tmp/characters.csv"));
             int i = 0;
             sc.nextLine();
             while(sc.hasNextLine()){
@@ -302,6 +302,28 @@ public class Questao11 {
         }
     }
 
+    public static void Selecao(Personagem[] personagens) {
+
+        Personagem tmp;
+        int menor;
+
+        for(int i = 0; i < personagens.length - 1; i++){
+            menor = i;
+            for(int j = i+1; j < personagens.length; j++){
+                if(personagens[j].getName().compareTo(personagens[menor].getName()) < 0){
+                    menor = j;
+                }
+               
+            }
+
+            tmp = personagens[i];
+            personagens[i] = personagens[menor];
+            personagens[menor] = tmp;
+
+        }
+
+    }
+
     public static int getMaior(Personagem[] personagens){
 
         int maior = 0;
@@ -321,13 +343,13 @@ public class Questao11 {
         int[] count = new int[getMaior(personagens) + 1];
         Personagem[] ordenado = new Personagem[personagens.length];
 
-        for(int i = 0; i < count.length; count[i] = 0, i++);
+        for(int i = 0; i < count.length; count[i] = 0, i++, movimentacoes++, comparacoes++);
 
-        for(int i = 0; i < personagens.length; count[personagens[i].getYearOfBith()]++, i++);
+        for(int i = 0; i < personagens.length; count[personagens[i].getYearOfBith()]++, i++, movimentacoes++, comparacoes++);
 
-        for(int i = 1; i < count.length; count[i] += count[i-1], i++);
+        for(int i = 1; i < count.length; count[i] += count[i-1], i++, movimentacoes++, comparacoes++);
 
-        for(int i = personagens.length - 1; i >= 0; ordenado[count[personagens[i].getYearOfBith()]-1] = personagens[i], count[personagens[i].getYearOfBith()]--, i--);
+        for(int i = personagens.length - 1; i >= 0; ordenado[count[personagens[i].getYearOfBith()]-1] = personagens[i], count[personagens[i].getYearOfBith()]--, i--, movimentacoes++, comparacoes++);
         
 
         
@@ -369,6 +391,8 @@ public class Questao11 {
         Personagem[] personagens = new Personagem[ids.size()];
         
         preencherVetor(personagens, ids);
+
+        Selecao(personagens);
 
         Personagem[] personagens_ordenados = new Personagem[ids.size()];
 

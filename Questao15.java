@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -88,22 +87,22 @@ class Personagem {
     }
 
     public Personagem() {
-        this.id = "zzzzzzzzzzzz";
-        this.name = "zzzzzzzzzzzzz";
+        this.id = "";
+        this.name = "";
         this.alternate_names = new ArrayList<>();
-        this.house = "zzzzzzzzzzzzz";
-        this.ancestry = "zzzzzzzzzzzzzz";
-        this.species = "zzzzzzzzzzzzzzzzzz";
-        this.patronus = "zzzzzzzzzzzzzz";
+        this.house = "";
+        this.ancestry = "";
+        this.species = "";
+        this.patronus = "";
         this.hogwartsStaff = false;
         this.hogwatsStudent = false;
-        this.actorName = "zzzzzzzzzzzzzzzzzzzzzz";
+        this.actorName = "";
         this.alive = false;
-        this.dateOfBirth = Date.from(Instant.now());
+        this.dateOfBirth = Date.from(null);
         this.yearOfBith = 0;
-        this.eyeColour = "zzzzzzzzzzzzzzzz";
-        this.gender = "zzzzzzzzzzzzzzzzzzzz";
-        this.hairColor = "zzzzzzzzzzzzzzzzzz";
+        this.eyeColour = "";
+        this.gender = "";
+        this.hairColor = "";
         this.wizard = false;
     }
 
@@ -261,7 +260,7 @@ class Personagem {
 
 }
 
-public class Questao13 {
+public class Questao15 {
 
     public static void preencherVetor(Personagem[] personagens, ArrayList<String> ids){
         String line;
@@ -303,64 +302,39 @@ public class Questao13 {
         }
     }
 
-    public static void intercalar(Personagem[] personagens, int esq, int meio, int dir, int[] comp_mov){
-        int nEsq = (meio+1)-esq;
-        int nDir = dir - meio;
+    public static void Selecao(Personagem[] personagens) {
+        long inicio = System.nanoTime();
+        int comparacoes = 0, movimentacoes = 0;
 
-        Personagem[] arrayEsq = new Personagem[nEsq + 1];
-        Personagem[] arrayDir = new Personagem[nDir + 1];
+        Personagem tmp;
+        int menor;
 
-        arrayEsq[nEsq] = arrayDir[nDir] = new Personagem();
-
-        int iEsq, iDir, i;
-
-        for(iEsq = 0; iEsq < nEsq; iEsq++){
-            arrayEsq[iEsq] = personagens[esq + iEsq];
-        }
-
-        for(iDir = 0; iDir < nDir; iDir++){
-            arrayDir[iDir] = personagens[(meio + 1) + iDir];
-        }
-
-        for(iEsq = iDir = 0, i = esq; i <= dir; i++){
-            if(arrayEsq[iEsq].getActorName().compareTo(arrayDir[iDir].getActorName()) < 0){
-                personagens[i] = arrayEsq[iEsq];
-                iEsq++;
-                comp_mov[0]++;
-                comp_mov[1]++;
-            }else if(arrayEsq[iEsq].getActorName().compareTo(arrayDir[iDir].getActorName()) == 0){
-                if(arrayEsq[iEsq].getName().compareTo(arrayDir[iDir].getName()) < 0){
-                    personagens[i] = arrayEsq[iEsq];
-                    iEsq++;
-                    comp_mov[0] += 2;
-                    comp_mov[1]++;
-                }else{
-                    personagens[i] = arrayDir[iDir];
-                    iDir++;
-                    comp_mov[0] += 2;
-                    comp_mov[1]++; 
+        for(int i = 0; i < 10; i++){
+            menor = i;
+            for(int j = i+1; j < personagens.length; j++){
+                if(personagens[j].getName().compareTo(personagens[menor].getName()) < 0){
+                    menor = j;
                 }
-            }else{
-                personagens[i] = arrayDir[iDir];
-                iDir++;
-                comp_mov[0] += 2;
-                comp_mov[1]++; 
+                comparacoes++;
             }
-        }
-    }
 
-    public static void MergeSort(Personagem[] personagens, int esq, int dir, int[] comp_mov) {
-        if(esq < dir){
-            int meio = (esq + dir) /2;
-            MergeSort(personagens,esq, meio, comp_mov);
-            MergeSort(personagens,meio + 1, dir, comp_mov);
-            intercalar(personagens, esq, meio, dir, comp_mov);
+            tmp = personagens[i];
+            personagens[i] = personagens[menor];
+            personagens[menor] = tmp;
+
+            movimentacoes += 3;
         }
+
+        long fim = System.nanoTime();
+
+        long tempoExecucao = fim - inicio;
+
+        log(tempoExecucao, comparacoes, movimentacoes);
     }
 
     public static void log(long tempoExecucao,int comparacoes, int movimentacoes){
-        File log = new File("824007_mergesort.txt");
-        double segundos = tempoExecucao / 1_000_000_000.0;
+        File log = new File("824007_selecaoparcial.txt");
+        double segundos =tempoExecucao / 1_000_000_000.0;
 
         try{
             PrintWriter writer = new PrintWriter( new FileWriter(log, true));
@@ -375,7 +349,6 @@ public class Questao13 {
         Scanner sc = new Scanner(System.in);
         ArrayList<String> ids = new ArrayList<>();
         String id;
-        int[] comp_mov = {0,0};
         
         
         id = sc.nextLine();
@@ -390,15 +363,9 @@ public class Questao13 {
         //System.out.println(personagens.length);
         preencherVetor(personagens, ids);
 
-        long inicio = System.nanoTime();
-        MergeSort(personagens,0,personagens.length-1, comp_mov);
-        long fim = System.nanoTime();
-        
-        long tempoExecucao = fim - inicio;
-        
-        log(tempoExecucao, comp_mov[0], comp_mov[1]);
+        Selecao(personagens);
 
-        for(int i = 0; i < personagens.length; i++){
+        for(int i = 0; i < 10; i++){
             personagens[i].imprimir();
         }
 
@@ -406,4 +373,3 @@ public class Questao13 {
     }
 
 }
-
