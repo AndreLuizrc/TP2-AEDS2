@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Questao18",
+            "request": "launch",
+            "mainClass": "Questao18",
+            "projectName": "TP2_e0e65fca"
+        },
+        {
+            "type": "java",
             "name": "Questao9",
             "request": "launch",
             "mainClass": "Questao9",
