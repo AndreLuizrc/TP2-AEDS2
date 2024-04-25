@@ -268,7 +268,7 @@ public class Questao18 {
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         Date dateOfBirth;
         try {
-            Scanner sc = new Scanner(new File("characters.csv"));
+            Scanner sc = new Scanner(new File("/tmp/characters.csv"));
             int i = 0;
             sc.nextLine();
             while(sc.hasNextLine()){
@@ -301,7 +301,7 @@ public class Questao18 {
         }
     }
 
-    public static void QuickSortParcial(Personagem[] personagens, int esq, int dir) {
+    public static void QuickSortParcial(Personagem[] personagens, int esq, int dir,int[] comp_mov) {
         int i = esq;
         int j = dir;
 
@@ -311,11 +311,14 @@ public class Questao18 {
             if(personagens[i].getHouse().compareTo(pivo.getHouse()) == 0){
                 if(personagens[i].getName().compareTo(pivo.getName()) < 0){
                     i++;
+                    comp_mov[0]++;
                 }else{
+                    comp_mov[0]++;
                     break;
                 }
             }else{
                 i++;
+                comp_mov[0]++ ;
             }
         }
 
@@ -323,11 +326,14 @@ public class Questao18 {
             if(personagens[j].getHouse().compareTo(pivo.getHouse()) == 0){
                 if(personagens[j].getName().compareTo(pivo.getName()) > 0){
                     j--;
+                    comp_mov[0]++;
                 }else{
+                    comp_mov[0]++;
                     break;
                 }
             }else{
                 j--;
+                comp_mov[0]++;
             }
         }
 
@@ -337,19 +343,20 @@ public class Questao18 {
             personagens[j] = tmp;
             i++;
             j--;
+            comp_mov[1] += 3;
         }
 
         if( i < dir && i < 10){
-            QuickSortParcial(personagens,i,dir);
+            QuickSortParcial(personagens,i,dir,comp_mov);
         }
 
         if(j > esq){
-            QuickSortParcial(personagens, esq, j);
+            QuickSortParcial(personagens, esq, j,comp_mov);
         }
     }
 
     public static void log(long tempoExecucao,int comparacoes, int movimentacoes){
-        File log = new File("824007_incercaoparcial.txt");
+        File log = new File("824007_quickSortparcial.txt");
         double segundos =tempoExecucao / 1_000_000_000.0;
 
         try{
@@ -365,7 +372,7 @@ public class Questao18 {
         Scanner sc = new Scanner(System.in);
         ArrayList<String> ids = new ArrayList<>();
         String id;
-        
+        int[] comp_mov = {0,0};
         
         id = sc.nextLine();
         while(id.equals("FIM") != true){
@@ -379,7 +386,15 @@ public class Questao18 {
         //System.out.println(personagens.length);
         preencherVetor(personagens, ids);
 
-        QuickSortParcial(personagens,0,personagens.length-1);
+        long inicio = System.nanoTime();
+
+        QuickSortParcial(personagens,0,personagens.length-1,comp_mov);
+
+        long fim = System.nanoTime();
+        
+        long tempoExecucao = fim - inicio;
+        
+        log(tempoExecucao, comp_mov[0], comp_mov[1]);
 
         for(int i = 0; i < 10; i++){
             personagens[i].imprimir();
