@@ -107,10 +107,10 @@ void imprimir(Personagem*);
 char **ler(char*);
 
 void PreencherVetor(Personagem*, char [][200]);
- 
-void ShellSort(Personagem*, int, double);
 
-void IncercaoPorCor(Personagem*, int, int);
+void Selecao(Personagem*, int, int, int*);
+ 
+void Log(int, int, double);
 
 int main(){
     clock_t inicio = clock();
