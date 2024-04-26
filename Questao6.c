@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <time.h>
 
 typedef struct {
     char Lista[500];
@@ -106,16 +107,19 @@ void imprimir(Personagem*);
 char **ler(char*);
 
 void PreencherVetor(Personagem*, char [][200]);
+ 
+void ShellSort(Personagem*, int, double);
 
-void Selecao(Personagem*);
-
+void IncercaoPorCor(Personagem*, int, int);
 
 int main(){
+    clock_t inicio = clock();
     char id[200];
     // int result;
     char ids[30][200];
     int i = 0;
     scanf("%s", id);
+    int comp_mov[2] = {0,0};
     
     while(strcmp(id, "FIM") != 0){
         strcpy(ids[i], id);
@@ -126,7 +130,15 @@ int main(){
     Personagem personagens[27];
     PreencherVetor(personagens, ids);
 
-    Selecao(personagens);
+    
+
+    Selecao(personagens, 0, 27, comp_mov);
+
+    clock_t fim = clock();
+
+    double tempoExecucao = (double)(fim - inicio);
+
+    Log(comp_mov[0], comp_mov[1], tempoExecucao);
 
     for(int i = 0; i < 27; i++){
         imprimir(&personagens[i]);
@@ -265,22 +277,43 @@ void PreencherVetor(Personagem personagens[], char ids[][200]){
     
 }
 
-void Selecao(Personagem personagens[]){
-    int tam_vetor = 27;
+void swap(Personagem personagens[], int i, int menor){
     Personagem tmp;
-    int menor;
 
-    for(int i = 0; i < tam_vetor-1; i++){
-        menor = i;
-        for(int j = i+1; j < tam_vetor; j++){
-            if(strcmp(personagens[j].name,personagens[menor].name) < 0){
-                menor = j;
-            }
+    tmp = personagens[i];
+    personagens[i] = personagens[menor];
+    personagens[menor] = tmp;
+}
+
+void Selecao(Personagem personagens[], int i, int tam_vetor, int comp_mov[]){
+    //int tam_vetor = 27;
+    if(i >= tam_vetor - 1){
+        return;
+    }
+
+    int menor = i;
+    for(int j = i+1; j < tam_vetor; j++){
+        if(strcmp(personagens[j].name,personagens[menor].name) < 0){
+            menor = j;
         }
+        comp_mov[0]++;
+    }
 
-        tmp = personagens[i];
-        personagens[i] = personagens[menor];
-        personagens[menor] = tmp;
+    swap(personagens, i, menor);
+    comp_mov[1] += 3;
+
+    //chamada recursiva
+    Selecao(personagens, i+1, tam_vetor, comp_mov);
+        
+}
+
+void Log(int comparacoes, int movimentacoes, double tempoExecucao){
+    FILE *log;
+
+    if((log = fopen("824007_selecaoRecursiva.txt","w")) != NULL){
+        fprintf(log,"824007\t%d\t%d\t%f",comparacoes,movimentacoes,tempoExecucao);
+    }else{
+        printf("Erro ao abrir arquivo de Log!");
     }
 }
 
