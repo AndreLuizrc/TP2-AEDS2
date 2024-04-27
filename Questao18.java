@@ -307,43 +307,45 @@ public class Questao18 {
 
         Personagem pivo = personagens[(esq+dir)/2];
 
-        while(personagens[i].getHouse().compareTo(pivo.getHouse()) <= 0){
-            if(personagens[i].getHouse().compareTo(pivo.getHouse()) == 0){
-                if(personagens[i].getName().compareTo(pivo.getName()) < 0){
+        while( i <= j){
+            while(personagens[i].getHouse().compareTo(pivo.getHouse()) <= 0){
+                if(personagens[i].getHouse().compareTo(pivo.getHouse()) == 0){
+                    if(personagens[i].getName().compareTo(pivo.getName()) < 0){
+                        i++;
+                        comp_mov[0] += 3;
+                    }else{
+                        comp_mov[0] +=3;
+                        break;
+                    }
+                }else{
                     i++;
-                    comp_mov[0]++;
-                }else{
-                    comp_mov[0]++;
-                    break;
+                    comp_mov[0] +=2 ;
                 }
-            }else{
-                i++;
-                comp_mov[0]++ ;
             }
-        }
-
-        while(personagens[j].getHouse().compareTo(pivo.getHouse()) >= 0){
-            if(personagens[j].getHouse().compareTo(pivo.getHouse()) == 0){
-                if(personagens[j].getName().compareTo(pivo.getName()) > 0){
+    
+            while(personagens[j].getHouse().compareTo(pivo.getHouse()) >= 0){
+                if(personagens[j].getHouse().compareTo(pivo.getHouse()) == 0){
+                    if(personagens[j].getName().compareTo(pivo.getName()) > 0){
+                        j--;
+                        comp_mov[0] +=3;
+                    }else{
+                        comp_mov[0] +=3;
+                        break;
+                    }
+                }else{
                     j--;
-                    comp_mov[0]++;
-                }else{
-                    comp_mov[0]++;
-                    break;
+                    comp_mov[0] +=2;
                 }
-            }else{
-                j--;
-                comp_mov[0]++;
             }
-        }
-
-        if(i <= j){
-            Personagem tmp = personagens[i];
-            personagens[i] = personagens[j];
-            personagens[j] = tmp;
-            i++;
-            j--;
-            comp_mov[1] += 3;
+    
+            if(i <= j){
+                Personagem tmp = personagens[i];
+                personagens[i] = personagens[j];
+                personagens[j] = tmp;
+                i++;
+                j--;
+                comp_mov[1] += 3;
+            }
         }
 
         if( i < dir && i < 10){

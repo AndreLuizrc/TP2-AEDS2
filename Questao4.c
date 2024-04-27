@@ -108,26 +108,24 @@ char **ler(char*);
 
 void PreencherVetor(Personagem*, char [][200]);
 
-int getMaiorFilho(Personagem*, int, int);
-
-void construir(Personagem*, int, int*);
-
-void reconstruir(Personagem*, int, int*);
-
-void heapSortParcial(Personagem*, int*);
+void QuickSort(Personagem*, int, int, int*);
 
 void swap(Personagem*, int, int);
  
 void Log(int, int, double);
 
+bool PesquisaBinaria(Personagem*, char*);
+
 int main(){
     clock_t inicio = clock();
     char id[200];
-    // int result;
     char ids[30][200];
     int i = 0;
-    scanf("%s", id);
     int comp_mov[2] = {0,0};
+    char name[200];
+    char lixo[200];
+
+    scanf("%s", id);
     
     while(strcmp(id, "FIM") != 0){
         strcpy(ids[i], id);
@@ -135,12 +133,11 @@ int main(){
         scanf("%s", id);
     }
 
-    Personagem personagens[28];
+    Personagem personagens[27];
+
     PreencherVetor(personagens, ids);
 
-    
-
-    heapSortParcial(personagens, comp_mov);
+    QuickSort(personagens, 0, 26, comp_mov);
 
     clock_t fim = clock();
 
@@ -148,9 +145,27 @@ int main(){
 
     Log(comp_mov[0], comp_mov[1], tempoExecucao);
 
-    for(int i = 1; i <= 10; i++){
-        imprimir(&personagens[i]);
-    }
+    bool find;
+
+    //Limpar Buffer de entrada//
+    scanf("%99[^\n]%*c", lixo);
+    //-----------------------//
+
+    scanf("%99[^\n]%*c", name);
+    name[strcspn(name, "\r")] = '\0';
+
+    while(strcmp(name, "FIM") != 0){
+        find = PesquisaBinaria(personagens, name);
+
+        if(find == true){
+            printf("SIM\n");
+        }else{
+            printf("NAO\n");
+        }
+
+        scanf("%99[^\n]%*c", name);
+        name[strcspn(name, "\r")] = '\0';
+    }   
 }
 
 Personagem construtor(char id[], char name[], char alternate_names[], char house[], char ancestry[], char species[], char patronus[], bool hogwartsStaff, bool hogwartsStudent, char actorName[], bool alive, char dateOfBirth[],
@@ -243,7 +258,7 @@ void PreencherVetor(Personagem personagens[], char ids[][200]){
     char line[1200];
     if((arquivo_csv = fopen("/tmp/characters.csv", "r")) != NULL){
         
-        int i = 1;
+        int i = 0;
         int tam_lista;
         fgets(line,1200,arquivo_csv);
         while( fgets(line,1200,arquivo_csv) != NULL){
@@ -293,107 +308,67 @@ void swap(Personagem personagens[], int i, int j){
     personagens[j] = tmp;
 }
 
-void construir(Personagem personagens[], int tam, int comp_mov[]){
-    for(int i = tam; i > 1 && (strcmp(personagens[i].hairColor,personagens[i/2].hairColor) >= 0); i /=2){
-        if(strcmp(personagens[i].hairColor,personagens[i/2].hairColor) == 0){
-            if(strcmp(personagens[i].name,personagens[i/2].name) > 0){
-                swap(personagens,i/2, i);
-                comp_mov[1] += 3;
-            }
-            comp_mov[0] += 3;
-        }else{
-            comp_mov[0] += 3;
-            swap( personagens, i/2, i);
+void QuickSort(Personagem personagens[], int esq, int dir, int comp_mov[]){
+    int i = esq;
+    int j = dir;
+    Personagem pivo = personagens[(esq + dir) / 2];
+
+    while( i <= j){
+        while(strcmp(personagens[i].name,pivo.name) < 0){
+            comp_mov[0] += 2;
+            i++;  
+        }
+
+        while(strcmp(personagens[j].name,pivo.name) > 0){
+            comp_mov[0] ++;
+            j--;
+        }
+
+        if(i <= j){
+            swap(personagens,i,j);
             comp_mov[1] += 3;
+            i++;
+            j--;
         }
     }
-    comp_mov[0]++;
+
+    if( i < dir){
+        QuickSort(personagens, i, dir, comp_mov);
+    }
+
+    if(j > esq){
+        QuickSort(personagens, esq, j, comp_mov);
+    }   
 }
 
-int getMaiorFilho(Personagem personagens[], int tam, int i){
-    int filho;
-    if (2 * i == tam || strcmp(personagens[2*i].hairColor,personagens[2*i+1].hairColor) > 0){
-        filho = 2*i;
-    } else if(strcmp(personagens[2*i].hairColor,personagens[2*i+1].hairColor) == 0){
-        if(strcmp(personagens[2*i].name,personagens[2*i+1].name) > 0){
-            filho = 2*i;
+bool PesquisaBinaria(Personagem personagens[], char nome[]){
+    int dir = 26;
+    int esq = 0;
+    int meio;
+    bool resp = false;
+
+    while(esq <= dir){
+        meio = (esq + dir) / 2;
+
+        //printf("%s\n", nome);
+        //printf("%s\n", personagens[meio].name);
+        if(strcmp(personagens[meio].name, nome) == 0){
+            resp = true;
+            esq = dir + 1;
+        } else if(strcmp(personagens[meio].name, nome) > 0){
+            dir = meio - 1;
         }else{
-            filho = 2*i+1;
-        }
-    }else{
-        filho = 2*i+1;
-    }
-
-    return filho;
-}
-
-void reconstruir(Personagem personagens[], int tam, int comp_mov[]){
-    int i = 1;
-    while( i <= tam / 2){
-        int filho = getMaiorFilho(personagens, tam, i);
-        if(strcmp(personagens[i].hairColor,personagens[filho].hairColor) <= 0){
-            if(strcmp(personagens[i].hairColor,personagens[filho].hairColor) == 0){
-                if(strcmp(personagens[i].name,personagens[filho].name) < 0){
-                    comp_mov[0] += 3;
-                    swap(personagens,i, filho);
-                    comp_mov[1] += 3;
-                    i = filho; 
-                }else {
-                    comp_mov[0] += 3;
-                    i = tam;
-                }
-            }else {
-                comp_mov[0] += 2;
-                swap(personagens, i, filho);
-                comp_mov[1] += 3;
-                i = filho;
-            }
-        }else {
-            comp_mov[0]++;
-            i = tam;
-        }
-    }
-}
-
-void heapSortParcial(Personagem personagens[],int comp_mov[]){
- 
-    for(int tam = 2; tam <= 10; tam++){
-        construir(personagens, tam, comp_mov);
-    }
-
-    for(int i = 10 + 1; i <= 27; i++){
-        if(strcmp(personagens[i].hairColor,personagens[1].hairColor) <= 0){
-            if(strcmp(personagens[i].hairColor,personagens[1].hairColor) == 0){
-                if(strcmp(personagens[i].name,personagens[1].name) < 0){
-                    swap(personagens, i, 1);
-                    reconstruir(personagens, 10, comp_mov);
-                }
-                comp_mov[0] += 3;
-            }else{
-                swap(personagens, i, 1);
-                reconstruir(personagens, 10, comp_mov);
-                comp_mov[0] += 3;
-            }
-        }else{
-            comp_mov[0]++;
+            esq = meio + 1;
         }
     }
 
-
-    int tam = 10;
-    while (tam > 1){
-        swap(personagens, 1, tam);
-        tam--;
-        reconstruir(personagens, tam, comp_mov);
-        comp_mov[1] += 3; 
-    }
-        
+    return resp;
 }
 
 void Log(int comparacoes, int movimentacoes, double tempoExecucao){
     FILE *log;
 
-    if((log = fopen("824007_heapsortparcial.txt","w")) != NULL){
+    if((log = fopen("824007_quicksort.txt","w")) != NULL){
         fprintf(log,"824007\t%d\t%d\t%f",comparacoes,movimentacoes,tempoExecucao);
     }else{
         printf("Erro ao abrir arquivo de Log!");
