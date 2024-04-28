@@ -108,9 +108,11 @@ char **ler(char*);
 
 void PreencherVetor(Personagem*, char [][200]);
 
-void bolha(Personagem*, int*);
+int getMaxLen(Personagem*);
 
-void swap(Personagem*, int, int);
+void countSort(Personagem*, int, int, int*);
+
+void radixsort(Personagem*, int*);
  
 void Log(int, int, double);
 
@@ -131,7 +133,7 @@ int main(){
     Personagem personagens[27];
     PreencherVetor(personagens, ids);
 
-    bolha(personagens, comp_mov);
+    radixsort(personagens, comp_mov);
 
     clock_t fim = clock();
 
@@ -276,42 +278,74 @@ void PreencherVetor(Personagem personagens[], char ids[][200]){
     
 }
 
-void swap(Personagem personagens[], int i, int j){
-    Personagem tmp;
+int getMaxLen(Personagem personagens[]){
+    int max = 0;
 
-    tmp = personagens[i];
-    personagens[i] = personagens[j];
-    personagens[j] = tmp;
-}
-
-void bolha(Personagem personagens[],int comp_mov[]){
-    for(int i = 26; i > 0; i--){
-        for(int j = 0; j < i; j++){
-            if(strcmp(personagens[j].hairColor,personagens[j+1].hairColor) >= 0){
-                if(strcmp(personagens[j].hairColor,personagens[j+1].hairColor) == 0){
-                    if(strcmp(personagens[j].name,personagens[j+1].name) > 0){
-                        swap(personagens, j, j+1);
-                        comp_mov[1] += 3;
-                    }
-                    comp_mov[0] += 3;
-                }else{
-                    comp_mov[0] += 2;
-                    swap(personagens, j, j+1);
-                    comp_mov[1] += 3; 
-                }
-            }else{
-                comp_mov[0]++;
-            }
+    for(int i = 0; i < 27; i++){
+        int len = strlen(personagens[i].id);
+        if(len > max){
+            max = len;
         }
     }
 
-        
+    return max;
+}
+
+void countSort(Personagem personagens[], int n, int exp, int comp_mov[]){
+    Personagem tmp_personagens[27];
+    int count[256] = {0};
+
+    for(int i = 0; i < n; i++){
+        int charIndex;
+        int posicao = strlen(personagens[i].id) - exp - 1;
+        if(posicao >= 0){
+            charIndex = personagens[i].id[posicao];
+        }else {
+            charIndex = 0;
+        }
+
+        comp_mov[0]++;
+        count[charIndex]++;
+    }
+
+    for(int i = 1; i < 256; i++){
+        count[i] += count[i-1];
+    }
+
+    for(int i = n-1; i >= 0; i--){
+        int charIndex;
+        int posicao = strlen(personagens[i].id) - exp - 1;
+        if(posicao >= 0){
+            charIndex = personagens[i].id[posicao];
+        }else {
+            charIndex = 0;
+        }
+
+        tmp_personagens[count[charIndex] - 1] = personagens[i];
+        count[charIndex]--; 
+        comp_mov[0]++;
+        comp_mov[1]++;
+    }
+
+    for(int i = 0; i < n; i++){
+        personagens[i] = tmp_personagens[i];
+        comp_mov[1]++;
+    }
+}
+
+void radixsort(Personagem personagens[],int comp_mov[]){
+
+    int maxLen = getMaxLen(personagens);
+
+    for(int exp = 0; exp < maxLen; exp++){
+        countSort(personagens,27,exp,comp_mov);
+    }
 }
 
 void Log(int comparacoes, int movimentacoes, double tempoExecucao){
     FILE *log;
 
-    if((log = fopen("824007_bolha.txt","w")) != NULL){
+    if((log = fopen("824007_radixsort.txt","w")) != NULL){
         fprintf(log,"824007\t%d\t%d\t%f",comparacoes,movimentacoes,tempoExecucao);
     }else{
         printf("Erro ao abrir arquivo de Log!");
