@@ -106,7 +106,7 @@ void imprimir(Personagem*);
 
 char **ler(char*);
 
-void PreencherVetor(Personagem*, char [][200]);
+void PreencherVetor(Personagem*);
 
 int getMaiorFilho(Personagem*, int, int);
 
@@ -114,7 +114,7 @@ void construir(Personagem*, int, int*);
 
 void reconstruir(Personagem*, int, int*);
 
-void heapSortParcial(Personagem*, int*);
+void heapSortParcial(Personagem*, int, int*);
 
 void swap(Personagem*, int, int);
  
@@ -122,25 +122,35 @@ void Log(int, int, double);
 
 int main(){
     clock_t inicio = clock();
+    Personagem personagens[405];
+    Personagem* selectedPersonagens = malloc(sizeof(Personagem) * 405);
     char id[200];
-    // int result;
-    char ids[30][200];
-    int i = 0;
-    scanf("%s", id);
+    int count_select = 1;
     int comp_mov[2] = {0,0};
     
+    PreencherVetor(personagens);
+    //printf("Preencheu o vetor");
+
+    scanf("%s", id);
+    //fgets(id,200,stdin);
+
     while(strcmp(id, "FIM") != 0){
-        strcpy(ids[i], id);
-        i++;
+
+        for(int i = 0; i < 405; i++){
+            if(strcmp(personagens[i].id,id) == 0){
+                //printf("Encontrou o id");
+                selectedPersonagens[count_select] = personagens[i];
+                i = 405;
+            }
+        }
+
         scanf("%s", id);
+        //fgets(id,200,stdin);
+        count_select++;
     }
 
-    Personagem personagens[28];
-    PreencherVetor(personagens, ids);
-
-    
-
-    heapSortParcial(personagens, comp_mov);
+    //printf("%s", selectedPersonagens[0].id);
+    heapSortParcial(selectedPersonagens, count_select, comp_mov);
 
     clock_t fim = clock();
 
@@ -149,7 +159,7 @@ int main(){
     Log(comp_mov[0], comp_mov[1], tempoExecucao);
 
     for(int i = 1; i <= 10; i++){
-        imprimir(&personagens[i]);
+        imprimir(&selectedPersonagens[i]);
     }
 }
 
@@ -238,12 +248,12 @@ void imprimir(Personagem *P){
      P->hogwartsStaff == 1? "true": "false", P->hogwartsStudent == 1? "true": "false", P->actorName, P->alive == 1? "true": "false", P->dateOfBirth, P->yearOfBirth, P->eyeColour, P->gender, P->hairColor, P->wizard == 1? "true": "false") ;
 }
 
-void PreencherVetor(Personagem personagens[], char ids[][200]){
+void PreencherVetor(Personagem personagens[]){
     FILE *arquivo_csv;
     char line[1200];
     if((arquivo_csv = fopen("/tmp/characters.csv", "r")) != NULL){
         
-        int i = 1;
+        int i = 0;
         int tam_lista;
         fgets(line,1200,arquivo_csv);
         while( fgets(line,1200,arquivo_csv) != NULL){
@@ -264,17 +274,11 @@ void PreencherVetor(Personagem personagens[], char ids[][200]){
             atributos[2][tam_lista-1] = '}';
             //printf("%s", atributos[17]);
 
-            for(int k = 0; k < 27; k++){
-                if(strcmp(ids[k],atributos[0]) == 0){
-                    //printf("Cadastrou!");
-                    personagens[i] = construtor(atributos[0],atributos[1],atributos[2],atributos[3],atributos[4],
-                    atributos[5], atributos[6], strcmp(atributos[7], "VERDADEIRO") == 0? true: false, strcmp(atributos[8], "VERDADEIRO") == 0? true: false, atributos[9], atributos[10],
-                    atributos[12],atoi(atributos[13]), atributos[14], atributos[15], atributos[16], strcmp(atributos[17], "VERDADEIRO") == 0? true: false);
-                    
-                    i++;
-                }
-            }
-
+            personagens[i] = construtor(atributos[0],atributos[1],atributos[2],atributos[3],atributos[4],
+            atributos[5], atributos[6], strcmp(atributos[7], "VERDADEIRO") == 0? true: false, strcmp(atributos[8], "VERDADEIRO") == 0? true: false, atributos[9], atributos[10],
+            atributos[12],atoi(atributos[13]), atributos[14], atributos[15], atributos[16], strcmp(atributos[17], "VERDADEIRO") == 0? true: false);
+            
+            i++;
             free(atributos);
         }
         fclose(arquivo_csv);
@@ -355,13 +359,13 @@ void reconstruir(Personagem personagens[], int tam, int comp_mov[]){
     }
 }
 
-void heapSortParcial(Personagem personagens[],int comp_mov[]){
+void heapSortParcial(Personagem personagens[], int tam_vetor, int comp_mov[]){
  
     for(int tam = 2; tam <= 10; tam++){
         construir(personagens, tam, comp_mov);
     }
 
-    for(int i = 10 + 1; i <= 27; i++){
+    for(int i = 10 + 1; i <= tam_vetor - 1; i++){
         if(strcmp(personagens[i].hairColor,personagens[1].hairColor) <= 0){
             if(strcmp(personagens[i].hairColor,personagens[1].hairColor) == 0){
                 if(strcmp(personagens[i].name,personagens[1].name) < 0){
