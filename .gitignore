@@ -1,3 +1,4 @@
-.class,
-.exe,
-.txt
+/output
+*.class
+*.exe
+*.txt
